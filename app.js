@@ -14,12 +14,8 @@ var locals = {
 	]
 }
 
-// nunjucks.render('index.html', locals, , function(err, log) {
-// 	console.log(log);
-// })
-
 app.set('view engine', 'html');
-app.engine('htm', nunjucks.render);
+app.engine('html', nunjucks.render);
 nunjucks.configure('views', {
 	// nunjucks.configure must come after app.engine & app.set
 	express: app,
@@ -28,14 +24,14 @@ nunjucks.configure('views', {
 
 
 app.use(function(req, res, next) {
-	console.log(chalk.cyan(req.method), chalk.magenta(req.url), chalk.blue(res.statusCode));
+	console.log(chalk.cyan(req.method), chalk.magenta(req.url), chalk.magenta(res.statusCode));
 	next();
 })
 
 
-app.get('/', function (req, res, next) {
-	res.render('index.html', locals);
-	next();
+app.get('/', function (req, res) {
+	// res.render calls next automatically
+	res.render('index', locals);
 });
 
 app.get('/special/', function(req, res, next) {
@@ -47,5 +43,5 @@ app.get('/special/', function(req, res, next) {
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
-	console.log(chalk.green('listening on port ' + port));
+	console.log(chalk.cyan('listening on port ' + chalk.yellow(port)));
 });
