@@ -1,9 +1,18 @@
 var _ = require('lodash');
 
 var data = [];
+var uniqIds = [];
+
+function genRandId() {
+  var randId = Math.floor(Math.random() * (50000 - 5));
+  while (uniqIds.includes(randId)) {
+    randId.push(Math.floor(Math.random() * (50000 - 5)));
+  }
+  return randId;
+}
 
 function add(name, content) {
-  data.push({name: name, content: content});
+  data.push({ id: genRandId(), name: name, content: content});
 }
 
 function list() {
@@ -38,3 +47,7 @@ const getFakeTweet = function() {
 for (let i = 0; i < 10; i++) {
   module.exports.add( getFakeName(), getFakeTweet() );
 }
+
+
+// var first = data[0].id;
+// console.log(find({ id: first }));

@@ -14,4 +14,10 @@ router.get('/users/:name', function(req, res) {
   res.render('index', { list: list });
 })
 
+router.get('/tweets/:id', function(req, res) {
+	var id = Number(req.params.id);
+	var tweet = tweetBank.find({ id: id });
+	res.render('index', { tweets: tweet });
+})
+
 module.exports = router;
