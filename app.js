@@ -1,7 +1,8 @@
 const express = require( 'express' );
+const socketio = require('socket.io');
 const chalk = require( 'chalk' );
-const chokidar = require('chokidar');
 const nunjucks = require('nunjucks');
+const bodyParser = require('body-parser');
 const routes = require('./routes');
 const app = express();
 
@@ -13,6 +14,7 @@ nunjucks.configure('views', {
 	noCache: true
 })
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(function(req, res, next) {
 	console.log(chalk.cyan(req.method), chalk.magenta(req.url), chalk.magenta(res.statusCode));
 	next();
@@ -28,10 +30,11 @@ app.use(function(req, res, next) {
 })
 
 // app.use(express.static('public'));	//equivalent of middleware above
-app.use('/', routes);
+app.use('/', routes(io));
 
 
 var port = process.env.PORT || 3000;
-app.listen(port, function() {
+var server = app.listen(port, function() {
 	console.log(chalk.cyan('listening on port ' + chalk.yellow(port)));
 });
+var io = socketio.listen(server);
