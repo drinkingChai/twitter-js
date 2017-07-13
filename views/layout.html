@@ -78,7 +78,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="../vendor/socket.io.js" charset="utf-8"></script>
+    <script src="/vendor/socket.io.js" charset="utf-8"></script>
     <script>
       // Load the socket.io library above, then connect to the server.
       // Because the socket.io server is being run on the same server as your
@@ -89,10 +89,36 @@
       });
       // When 'new_tweet' events are fired, do something with the packaged tweet
       socket.on('newTweet', function (tweet) {
-        console.log(tweet);
         alert('Refreshing... check the console...');
-        // some logic to add the new tweet to the DOM…
+        // // some logic to add the new tweet to the DOM…
+
+        // the following code doesn't work since express is redirecting
+        var newTweet = document.createElement("LI"),
+          image = document.createElement("IMG"),
+          name = document.createElement("A"),
+          text = document.createElement("A");
+
+        newTweet.className = 'tweet';
+        image.src = 'https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg';
+        name.innerHTML = tweet.name;
+        name.className = 'name';
+        text.innerHTML = tweet.text;
+
+        newTweet.appendChild(image);
+        newTweet.appendChild(name);
+        newTweet.appendChild(text);
+
+        document.getElementsByClassName('tweet-box')[0].appendChild(newTweet);
+        // 
       });
+
+
+
+
+
+
+
+
     </script>
   </body>
 </html>

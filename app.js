@@ -30,11 +30,11 @@ app.use(function(req, res, next) {
 })
 
 // app.use(express.static('public'));	//equivalent of middleware above
-app.use('/', routes(io));
-
-
 var port = process.env.PORT || 3000;
 var server = app.listen(port, function() {
 	console.log(chalk.cyan('listening on port ' + chalk.yellow(port)));
 });
 var io = socketio.listen(server);
+
+
+app.use('/', routes(io));
