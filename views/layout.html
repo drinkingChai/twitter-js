@@ -100,16 +100,18 @@
 
         newTweet.className = 'tweet';
         image.src = 'https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg';
-        name.innerHTML = tweet.name;
+        name.text = tweet.name;
+        name.href = tweet.name;
         name.className = 'name';
-        text.innerHTML = tweet.text;
+        text.text = tweet.text;
+        text.href = tweet.id;
 
         newTweet.appendChild(image);
         newTweet.appendChild(name);
         newTweet.appendChild(text);
 
         document.getElementsByClassName('tweet-box')[0].appendChild(newTweet);
-        // 
+        //
       });
 
 

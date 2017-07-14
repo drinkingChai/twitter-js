@@ -26,7 +26,7 @@ module.exports = function(io) {
   	var name = req.body.name
   	var text = req.body.text;
   	tweetBank.add( name, text );
-  	io.sockets.emit('newTweet', { name: name, text: text });
+  	io.sockets.emit('newTweet', { name: name, text: text, id: id });
   	res.redirect(req.headers.referer);
   })
 
