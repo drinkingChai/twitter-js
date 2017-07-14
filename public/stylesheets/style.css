@@ -70,6 +70,9 @@ li.tweet {
 .tweet img {
   float: left;
   margin-right: 10px;
+  height: 48px;
+  width: 48px;
+  content:url("http://lorempixel.com/48/48");
 }
 .tweet .user {
   font-weight: bold;
