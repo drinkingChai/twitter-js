@@ -22,12 +22,17 @@ app.use(function(req, res, next) {
 
 // implementation for static middleware to public
 const path = require('path');
-app.use(function(req, res, next) {
-	var filePath = path.resolve('public' + req.url);
-	res.sendFile(filePath, function(err) {
-		if (err) next();
-	})
-})
+var myStatic = function(myPath) {
+	return function(req, res, next) {
+		var filePath = path.resolve(myPath + req.url);
+		res.sendFile(filePath, function(err) {
+			if (err) next();
+		})
+	}
+}
+
+
+app.use(myStatic('public'));
 
 // app.use(express.static('public'));	//equivalent of middleware above
 var port = process.env.PORT || 3000;
